@@ -63,6 +63,10 @@ Revision: $Rev: 13430 $
 #ifndef SEGGER_RTT_CONF_H
 #define SEGGER_RTT_CONF_H
 
+#ifdef UBINOS_PRESENT
+#include <ubinos.h>
+#endif
+
 #ifdef __IAR_SYSTEMS_ICC__
   #include <intrinsics.h>
 #endif
@@ -120,6 +124,14 @@ Revision: $Rev: 13430 $
 //
 
 #define SEGGER_RTT_MAX_INTERRUPT_PRIORITY         (0x20)   // Interrupt priority to lock on SEGGER_RTT_LOCK on Cortex-M3/4 (Default: 0x20)
+
+#if (INCLUDE__UBINOS__UBIK == 1)
+
+#define SEGGER_RTT_LOCK()	ubik_entercrit()
+
+#define SEGGER_RTT_UNLOCK() ubik_exitcrit()
+
+#else
 
 /*********************************************************************
 *
@@ -321,6 +333,8 @@ Revision: $Rev: 13430 $
   #define SEGGER_RTT_UNLOCK()   set_psw(get_psw() | LockState);                                     \
                               }
 #endif
+
+#endif /* (INCLUDE__UBINOS__UBIK == 1) */
 
 /*********************************************************************
 *

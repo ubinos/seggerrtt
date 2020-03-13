@@ -26,7 +26,7 @@ volatile int _Delay;
 *
 *       main
 */
-void main(void) {
+int main(void) {
   int r;
   int CancelOp;
 
@@ -65,6 +65,8 @@ void main(void) {
     SEGGER_RTT_GetKey();
     SEGGER_RTT_WriteString(0, "\r\n");
   } while (1);
+
+  return 0;
 }
 
 /*************************** End of file ****************************/
