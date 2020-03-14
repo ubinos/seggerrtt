@@ -63,9 +63,13 @@ Revision: $Rev: 13430 $
 #ifndef SEGGER_RTT_CONF_H
 #define SEGGER_RTT_CONF_H
 
-#ifdef UBINOS_PRESENT
+#if defined(UBINOS_BSP_PRESENT)
+#if !defined(__ASSEMBLY__)
 #include <ubinos.h>
-#endif
+#else /* !defined(__ASSEMBLY__) */
+#include <ubinos_config.h>
+#endif /* !defined(__ASSEMBLY__) */
+#endif /* defined(UBINOS_BSP_PRESENT) */
 
 #ifdef __IAR_SYSTEMS_ICC__
   #include <intrinsics.h>
@@ -78,11 +82,19 @@ Revision: $Rev: 13430 $
 **********************************************************************
 */
 
+#ifndef SEGGER_RTT_MAX_NUM_UP_BUFFERS
 #define SEGGER_RTT_MAX_NUM_UP_BUFFERS             (3)     // Max. number of up-buffers (T->H) available on this target    (Default: 3)
+#endif
+#ifndef SEGGER_RTT_MAX_NUM_DOWN_BUFFERS
 #define SEGGER_RTT_MAX_NUM_DOWN_BUFFERS           (3)     // Max. number of down-buffers (H->T) available on this target  (Default: 3)
+#endif
 
+#ifndef BUFFER_SIZE_UP
 #define BUFFER_SIZE_UP                            (1024)  // Size of the buffer for terminal output of target, up to host (Default: 1k)
+#endif
+#ifndef BUFFER_SIZE_DOWN
 #define BUFFER_SIZE_DOWN                          (16)    // Size of the buffer for terminal input to target from host (Usually keyboard input) (Default: 16)
+#endif
 
 #define SEGGER_RTT_PRINTF_BUFFER_SIZE             (64u)    // Size of buffer for RTT printf to bulk-send chars via RTT     (Default: 64)
 
