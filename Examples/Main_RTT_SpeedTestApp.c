@@ -64,6 +64,7 @@ int main(void) {
   OS_CREATETASK(&TCBHP, "HP Task", HPTask, 100, StackHP);
   OS_CREATETASK(&TCBLP, "LP Task", LPTask,  50, StackLP);
   OS_Start();                      /* Start multitasking            */
+
   return 0;
 }
 
